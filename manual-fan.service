@@ -1,0 +1,17 @@
+[Unit]
+Description=IPMI to enable manual control of fans, enable PICe exclusion
+After=network.target
+StartLimitInvervalSec=120
+StartLimitBurst=5
+
+[Servicel
+Type=oneshot
+ExecStart=/us/bin/ipmitool raw 0x30 0xce 0x00 0x16 0x05 0x00 0x00 0x00 0X05 0x00 0x01 0x00 0x00
+ExecStart=/usr/bin/ipmitool raw 0x30 0×30 0x01 0x00
+ExecStop=/usr/bin/ipmitool raw 0x30 0x30 0x01 0x01
+Restart=on-failure
+RestartSec=5s
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
